@@ -60,7 +60,7 @@ dqs(".regBtn").addEventListener("click" , function(e){
 	
 	const title = dqs("input[name='title']").value
 	const content = dqs("input[name='content']").value
-	const writer = dqs("input[name='writer']").value
+	const writer = dqs("input[name='writer']").value 
 	
 	const data = {"title":title , "content":content , "writer":writer}
 	console.log(data)
