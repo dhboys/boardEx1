@@ -53,30 +53,44 @@ const dqs = d.querySelector.bind(document)
 const actionForm = dqs(".actionForm")
 // const toGet = actionForm.setAttribute("method" , "get")
 
+const title = dqs("input[name='title']")
+const content = dqs("input[name='content']")
+const writer = dqs("input[name='writer']")
 
 // 등록...............................................
 
+
+function sendRegister(data){
+		
+		return fetch("/board/register" ,  
+				{ method : 'post',
+			      headers : {'Content-Type':'application/json'},
+			      body : JSON.stringify(data)
+			      }
+				)
+			      .then(res => res.text())
+			      
+			      			     
+		}
+
 dqs(".regBtn").addEventListener("click" , function(e){
 	
-	const title = dqs("input[name='title']").value
-	const content = dqs("input[name='content']").value
-	const writer = dqs("input[name='writer']").value 
+
+	const data = {title: title.value , content:content.value , writer:writer.value}
 	
-	const data = {"title":title , "content":content , "writer":writer}
 	console.log(data)
 	
-	function sendRegister(){
-		
-		fetch("/board/register" ,  
-			{ method : 'post',
-			  header : {'Content-Type':'application/json;charset=utf-8'},
-			  body : JSON.stringify(data)} )
-		
-		}
+	//sendRegister(data)
+
+	const fnResult = sendRegister(data)
 	
-	sendRegister(data)
+	fnResult.then(result => {
+		
+		console.log("RESULT: " + result)
+		
+	})
 	
-})
+},false)
 
 
 // 목록으로

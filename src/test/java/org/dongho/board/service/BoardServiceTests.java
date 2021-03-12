@@ -53,7 +53,7 @@ public class BoardServiceTests {
 	
 	@Test
 	public void testUpdate() {
-		BoardDTO boardDTO = BoardDTO.builder().bno(1526)
+		BoardDTO boardDTO = BoardDTO.builder().bno(1518)
 				 .title("updateService")
 				 .content("updateService")
 				 .writer("updateService")
