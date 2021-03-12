@@ -10,6 +10,29 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+
+<!------------------------------------------- Modal --------------------------------------->
+	  <div id="registerModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>수정하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info rounded-pill modifyBtn" data-dismiss="modal" onclick="movePage()">확인</button>
+        <button type="button" class="btn btn-dark rounded-pill hideBtn" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 	<div>
 		<h1>
 			<span class="badge badge-pill badge-info">MODIFY PAGE</span>
@@ -55,13 +78,56 @@
 	</form>
 
 	<script>
+	
+	const d = document
+	const dqs = d.querySelector.bind(document)
+	const actionForm = dqs(".actionForm")
 
+	const bno = dqs("input[name='bno']")
+	const title = dqs("input[name='title']")
+	const content = dqs("input[name='content']")
+	const writer = dqs("input[name='writer']")
+	
+function movePage(){
+	
+	const data = {bno:bno.value , title: title.value , content:content.value , writer:writer.value}
+		
+	function sendModify(data){
+		
+		
+		return fetch("/board/modify" ,  
+				{ method : 'post',
+			      headers : {'Content-Type':'application/json'},
+			      body : JSON.stringify(data)
+			      }
+				)
+			      .then(res => res.text())
+			      			     
+		}
+	
 
+	console.log(data)
 
+	const fnResult = sendModify(data)
+	fnResult.then(result => {
+		console.log(result)
+	})
+	
+	dqs(".actionForm input[name='page']").value = 1
+			actionForm.setAttribute("method", "get")
+			actionForm.setAttribute("action", "/board/list")
+			actionForm.submit()
+	
+}
 
-const d = document
-const dqs = d.querySelector.bind(document)
-const actionForm = dqs(".actionForm")
+// hideBtn
+
+dqs(".hideBtn").addEventListener("click" , function(e){
+
+	$("#registerModal").modal("hide")
+	
+} , false)
+
 
 
 // 목록으로
@@ -85,34 +151,9 @@ dqs(".canBtn").addEventListener("click" , function(e){
 // 수정완료 버튼
 
 
-
-	
-function sendRegister(data){
-		
-	
-		return fetch("/board/modify" ,  
-				{ method : 'post',
-			      headers : {'Content-Type':'application/json'},
-			      body : JSON.stringify(data)
-			      }
-				)
-			      .then(res => res.text())
-			      .then(result => console.log(result))			     
-		}
-
 dqs(".modBtn").addEventListener("click" , function(e){
-	
-	const bno = dqs("input[name='bno']")
-	const title = dqs("input[name='title']")
-	const content = dqs("input[name='content']")
-	const writer = dqs("input[name='writer']")
-	
-	const data = {bno:bno.value , title: title.value , content:content.value , writer:writer.value}
-
-	
-	console.log(data)
-
-	sendRegister(data)
+	console.log("------")
+	$("#registerModal").modal("show")
 	
 },false)
 	

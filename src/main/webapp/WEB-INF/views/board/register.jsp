@@ -13,6 +13,28 @@
 				<div>
                 	<h1><span class="badge badge-pill badge-info">REGISTER PAGE</span></h1>
 				</div>
+				
+
+   <div id="registerModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>등록하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info rounded-pill" data-dismiss="modal" onclick="movePage()">등록</button>
+        <button type="button" class="btn btn-dark rounded-pill hideBtn" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
                   
   <div class="form-group">
     <label for="exampleFormControlInput1">TITLE</label>
@@ -45,14 +67,9 @@
 
 <script>
 
-
-
-
 const d = document
 const dqs = d.querySelector.bind(document)
 const actionForm = dqs(".actionForm")
-// const toGet = actionForm.setAttribute("method" , "get")
-
 const title = dqs("input[name='title']")
 const content = dqs("input[name='content']")
 const writer = dqs("input[name='writer']")
@@ -68,14 +85,13 @@ function sendRegister(data){
 			      body : JSON.stringify(data)
 			      }
 				)
-			      .then(res => res.text())
-			      
-			      			     
+			      .then(res => res.text())      			     
 		}
 
-dqs(".regBtn").addEventListener("click" , function(e){
-	
+// 등록 후 이동
 
+function movePage(){
+	
 	const data = {title: title.value , content:content.value , writer:writer.value}
 	
 	console.log(data)
@@ -87,10 +103,35 @@ dqs(".regBtn").addEventListener("click" , function(e){
 	fnResult.then(result => {
 		
 		console.log("RESULT: " + result)
-		
 	})
 	
+			dqs(".actionForm input[name='page']").value = 1
+			actionForm.setAttribute("method", "get")
+			actionForm.setAttribute("action", "/board/list")
+			actionForm.submit()
+}
+
+
+// const toGet = actionForm.setAttribute("method" , "get")
+
+
+// 등록..............................................
+
+
+dqs(".regBtn").addEventListener("click" , function(e){
+	
+	$("#registerModal").modal("show")
+	
+
 },false)
+
+// 등록페이지 취소
+
+dqs(".hideBtn").addEventListener("click" , function(e){
+	
+	$("#registerModal").modal("hide")
+	
+} , false)
 
 
 // 목록으로

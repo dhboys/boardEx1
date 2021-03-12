@@ -15,6 +15,28 @@
 			<span class="badge badge-pill badge-info">READ PAGE</span>
 		</h1>
 	</div>
+	
+	
+	<!------------------------------------------- Modal --------------------------------------->
+	  <div id="registerModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>삭제하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info rounded-pill deleteBtn" data-dismiss="modal" onclick="movePage()">삭제</button>
+        <button type="button" class="btn btn-dark rounded-pill hideBtn" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -58,11 +80,49 @@
 	</form>
 
 	<script>
+	
+	const d = document
+	const dqs = d.querySelector.bind(document)
+	const actionForm = dqs(".actionForm")
+	const bno = dqs(".bno").getAttribute('value')
+	
+	function movePage(){
+		
+		function sendRemove(bno) {
+
+			return fetch('/board/remove', {
+				method : 'post',
+				headers : { 'Content-Type' : 'application/json'},
+				body : JSON.stringify(bno)
+			}).then(res => res.text())
+			  
+		}
+		
+		const fnResult = sendRemove(bno)
+		fnResult.then(result => {
+			console.log(result)
+		})
+		
+		dqs(".actionForm input[name='page']").value = 1
+			actionForm.setAttribute("method", "get")
+			actionForm.setAttribute("action", "/board/list")
+			actionForm.submit()
+	}
+
+	// 삭제페이지 취소
+
+	dqs(".hideBtn").addEventListener("click" , function(e){
+		
+		e.target.modal("hide")
+		
+	})
+	
+
 		// delete...............................................
 
-		const d = document
+	/* 	const d = document
 		const dqs = d.querySelector.bind(document)
-		const actionForm = dqs(".actionForm")
+		const actionForm = dqs(".actionForm") */
 		// const toGet = actionForm.setAttribute("method" , "get")
 
 		// delete...............................................
@@ -77,28 +137,16 @@
 		
 		 } , false) */
 
-		const bno = dqs(".bno").getAttribute('value')
 		
-
-			function sendRemove(bno) {
-
-				return fetch('/board/remove', {
-					method : 'post',
-					headers : { 'Content-Type' : 'application/json'},
-					body : JSON.stringify(bno)
-				}).then(res => res.text())
-				  .then(result => console.log(result))
-
-			}
+		
+			
 		
 		dqs(".delBtn").addEventListener("click", function(e) {
 
+			$("#registerModal").modal("show")
+		
 			
-			sendRemove(bno)
-			
-			location.href = "http://"
-			
-		})
+		} , false)
 
 		// 목록으로
 
@@ -108,11 +156,7 @@
 			actionForm.submit()
 		}, false)
 
-		dqs(".modBtn")
-				.addEventListener(
-						"click",
-						function(e) {
-
+		dqs(".modBtn").addEventListener("click",function(e) {
 							actionForm.setAttribute("action", "/board/modify")
 							actionForm.innerHTML += "<input type='hidden' name='bno' value='"+bno+"'>"
 							actionForm.submit()
