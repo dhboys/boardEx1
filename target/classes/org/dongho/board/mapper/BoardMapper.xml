@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dongho.board.mapper.BoardMapper">
+<sql id="search">
+<where>
+  		<if test="arr != null">
+  		<foreach collection="arr" item="item" separator="OR" open="(" close=")">
+  			<if test="item == 't'.toString">
+  				title like concat('%' , #{keyword} , '%')
+  			</if>
+  			<if test="item == 'c'.toString">
+  				title like concat('%' , #{keyword} , '%')
+  			</if>
+  			<if test="item == 'w'.toString">
+  				title like concat('%' , #{keyword} , '%')
+  			</if>
+  		</foreach>
+  		</if>
+  		</where>
+</sql>
+
+
+	<select id="getList" resultType="org.dongho.board.domain.Board">
+		<![CDATA[
+  		select * from tbl_boardex 
+  		]]>
+  		
+  		<include refid="search"></include>
+  		
+  		<![CDATA[
+  		order by bno desc limit #{skip},#{perSheet}
+  		]]>
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[
+  		select count(bno) from tbl_boardex
+  		]]>
+  		
+  		<include refid="search"></include>
+  		
+	</select>
+	
+	<select id="selectOne" resultType="org.dongho.board.domain.Board">
+		<![CDATA[
+  		select * from tbl_boardex where bno = #{bno}
+  		]]>
+	</select>
+	
+	<insert id="insert">
+		<![CDATA[
+  		insert into tbl_boardex ( title , content , writer ) values (#{title},#{content},#{writer})
+  		]]>
+	</insert>
+	
+	<delete id="delete">
+		<![CDATA[
+  		delete from tbl_boardex where bno = #{bno}
+  		]]>
+	</delete>
+	
+	<update id="update">
+		<![CDATA[
+  		update tbl_boardex set title = #{title} , content = #{content} , writer = #{writer}
+  		where bno = #{bno}
+  		]]>
+	</update>
+
+</mapper>
