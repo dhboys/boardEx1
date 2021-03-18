@@ -48,13 +48,13 @@
 
  <!-- Topbar Search -->
                     <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" onsubmit="return false">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light bordered small" placeholder="무엇을 검색하시겠습니까?"
                                  name="skeyword">
                             <div class="input-group-append">
-                                <button class="btn btn-dark" type="button">
-                                    <i class="fas fa-search fa-sm sBtn"></i>
+                                <button class="btn btn-dark sBtn" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
                         </div>
@@ -126,6 +126,14 @@
   const d = document
   const dqs = d.querySelector.bind(document)
   const actionForm = dqs(".actionForm")
+  
+  
+ 
+  
+ 
+  
+  
+  
   // pagination -------------------------------------------
       document.querySelector(".pagination").addEventListener("click" , function(e) {
 	  e.stopPropagation()
@@ -138,6 +146,11 @@
 	  dqs(".actionForm input[name='page']").value = pageNum
 	  dqs(".actionForm").submit()
 	  }
+	  
+	  if(type == '' && keyword == ''){
+	  		dqs(".actionForm input[name='type']").remove()
+	  		dqs(".actionForm input[name='keyword']").remove()
+	  	}
   } , false)
   
 
@@ -149,33 +162,74 @@
     	
     	const target = e.target
     	
-    	const type = dqs(".stype").value
-    	
-    	const keyword = dqs("input[name='skeyword']").value
-    	
-    	if(keyword == null){
-    		console.log("--")
-    		$("#searchModal").modal("show")
-    		
-    	}
+    	 const type = dqs(".stype").value
+     	
+    	 const keyword = dqs("input[name='skeyword']").value
     	
     	
-    	//console.log(type)
-    	//console.log(keyword)
-    	
-    	dqs(".actionForm input[name='page']").value = 1
+		dqs(".actionForm input[name='page']").value = 1
     	
     	dqs(".actionForm input[name='type']").value = type
     	
     	dqs(".actionForm input[name='keyword']").value =
     		dqs("input[name='skeyword']").value
-    		
-    		
+
+    
+    	//console.log(keyword)
+    	
+    	// type은 정하고 keyword를 입력하지 않았을시 처리
+    	if(type == '' || keyword == ''){
+    		alert("검색어를 입력해주세요")
+    	}
+    	
+    	// type 과 keyword가 null일 때 url에서 제거
+    	
+ 
 	
     	actionForm.submit()
 
     } , false)
     
+    
+  
+     /* dqs("input[name='skeyword']").onkeypress = function(e){
+    	 
+    	 console.log(dqs("input[name='skeyword']").keyCode)
+    	 
+    	 if(e.keycode === 13) {
+    	 
+    	 const target = e.target
+    	
+    	 const type = dqs(".stype").value
+     	
+    	 const keyword = dqs("input[name='skeyword']").value
+    	
+    	
+		dqs(".actionForm input[name='page']").value = 1
+    	
+    	dqs(".actionForm input[name='type']").value = type
+    	
+    	dqs(".actionForm input[name='keyword']").value =
+    		dqs("input[name='skeyword']").value
+
+    
+    	//console.log(keyword)
+    	
+    	// type은 정하고 keyword를 입력하지 않았을시 처리
+    	if(type == '' || keyword == ''){
+    		alert("검색어를 입력해주세요")
+    	}
+    	
+    	// type 과 keyword가 null일 때 url에서 제거
+    	
+ 
+	
+    	//actionForm.submit()
+    	 }
+    	
+  	} */
+ 
+  
      // 조회 -------------------------------------------
      d.querySelectorAll(".rBtn").forEach(a => {
     	 a.addEventListener("click" , function(e) {
@@ -185,12 +239,17 @@
     		
     		actionForm.setAttribute("action" , "/board/read")
     		actionForm.innerHTML += "<input type='hidden' name='bno' value='"+bno+"'>"
+    		
+    
+    		
     		actionForm.submit()
     	 },false)
      })
      
      // 등록페이지로
      d.querySelector(".regBtn").addEventListener("click" , function(e){
+    	 
+    
     	
     	 actionForm.setAttribute("action" , "/board/register")
     	 actionForm.submit()

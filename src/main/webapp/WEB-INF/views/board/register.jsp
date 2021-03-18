@@ -74,6 +74,10 @@ const title = dqs("input[name='title']")
 const content = dqs("input[name='content']")
 const writer = dqs("input[name='writer']")
 
+const type = dqs("input[name='type']").value
+    	
+const keyword = dqs("input[name='keyword']").value
+
 // 등록...............................................
 
 
@@ -120,6 +124,13 @@ function movePage(){
 
 dqs(".regBtn").addEventListener("click" , function(e){
 	
+	
+	 if(type == '' && keyword == ''){
+	  		dqs(".actionForm input[name='type']").remove()
+	  		dqs(".actionForm input[name='keyword']").remove()
+	  	}
+	  
+	
 	$("#registerModal").modal("show")
 	
 
@@ -128,6 +139,7 @@ dqs(".regBtn").addEventListener("click" , function(e){
 // 등록페이지 취소
 
 dqs(".hideBtn").addEventListener("click" , function(e){
+	
 	
 	$("#registerModal").modal("hide")
 	
@@ -138,6 +150,12 @@ dqs(".hideBtn").addEventListener("click" , function(e){
 
 dqs(".canBtn").addEventListener("click" , function(e){
 	console.log("...")
+	
+	if(type == '' && keyword == ''){
+  		dqs(".actionForm input[name='type']").remove()
+  		dqs(".actionForm input[name='keyword']").remove()
+  	}
+	
 	actionForm.setAttribute("method" , "get")
 	actionForm.setAttribute("action" , "/board/list")
 	actionForm.submit()

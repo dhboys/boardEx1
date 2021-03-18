@@ -88,6 +88,10 @@
 	const content = dqs("input[name='content']")
 	const writer = dqs("input[name='writer']")
 	
+	const type = dqs("input[name='type']").value  	
+	const keyword = dqs("input[name='keyword']").value
+	
+	
 function movePage(){
 	
 	const data = {bno:bno.value , title: title.value , content:content.value , writer:writer.value}
@@ -113,6 +117,11 @@ function movePage(){
 		console.log(result)
 	})
 	
+	if(type == '' && keyword == ''){
+  		dqs(".actionForm input[name='type']").remove()
+  		dqs(".actionForm input[name='keyword']").remove()
+  	}
+	
 	dqs(".actionForm input[name='page']").value = 1
 			actionForm.setAttribute("method", "get")
 			actionForm.setAttribute("action", "/board/list")
@@ -134,6 +143,8 @@ dqs(".hideBtn").addEventListener("click" , function(e){
 
 dqs(".listBtn").addEventListener("click" , function(e){
 	
+	
+	
 	actionForm.setAttribute("action" , "/board/list")
 	actionForm.setAttribute("method" , "get")
 	actionForm.submit()
@@ -142,6 +153,9 @@ dqs(".listBtn").addEventListener("click" , function(e){
 // cancel
 
 dqs(".canBtn").addEventListener("click" , function(e){
+	
+	
+	
 	actionForm.setAttribute("action" , "/board/read")
 	actionForm.setAttribute("method" , "get")
 	actionForm.innerHTML += "<input type='hidden' name='bno' value='"+bno.value+"'>"
@@ -153,6 +167,9 @@ dqs(".canBtn").addEventListener("click" , function(e){
 
 dqs(".modBtn").addEventListener("click" , function(e){
 	console.log("------")
+	
+	
+	
 	$("#registerModal").modal("show")
 	
 },false)

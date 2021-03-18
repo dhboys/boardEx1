@@ -6,6 +6,7 @@ import org.dongho.board.dto.BoardDTO;
 import org.dongho.board.service.BoardService;
 import org.dongho.common.dto.PageDTO;
 import org.dongho.common.dto.PageMaker;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/board")
 @Log4j
 @RequiredArgsConstructor
+@EnableAspectJAutoProxy
 public class BoardController {
 
 	

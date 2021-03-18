@@ -86,6 +86,9 @@
 	const actionForm = dqs(".actionForm")
 	const bno = dqs(".bno").getAttribute('value')
 	
+	const type = dqs("input[name='type']").value  	
+	const keyword = dqs("input[name='keyword']").value
+	
 	function movePage(){
 		
 		function sendRemove(bno) {
@@ -103,6 +106,11 @@
 			console.log(result)
 		})
 		
+		if(type == '' && keyword == ''){
+	  		dqs(".actionForm input[name='type']").remove()
+	  		dqs(".actionForm input[name='keyword']").remove()
+	  	}
+		
 		dqs(".actionForm input[name='page']").value = 1
 			actionForm.setAttribute("method", "get")
 			actionForm.setAttribute("action", "/board/list")
@@ -112,6 +120,11 @@
 	// 삭제페이지 취소
 
 	dqs(".hideBtn").addEventListener("click" , function(e){
+		
+		if(type == '' && keyword == ''){
+	  		dqs(".actionForm input[name='type']").remove()
+	  		dqs(".actionForm input[name='keyword']").remove()
+	  	}
 		
 		e.target.modal("hide")
 		
@@ -152,11 +165,22 @@
 
 		dqs(".listBtn").addEventListener("click", function(e) {
 
+			if(type == '' && keyword == ''){
+		  		dqs(".actionForm input[name='type']").remove()
+		  		dqs(".actionForm input[name='keyword']").remove()
+		  	}
+			
 			actionForm.setAttribute("action", "/board/list")
 			actionForm.submit()
 		}, false)
 
 		dqs(".modBtn").addEventListener("click",function(e) {
+			
+			if(type == '' && keyword == ''){
+		  		dqs(".actionForm input[name='type']").remove()
+		  		dqs(".actionForm input[name='keyword']").remove()
+		  	}
+							
 							actionForm.setAttribute("action", "/board/modify")
 							actionForm.innerHTML += "<input type='hidden' name='bno' value='"+bno+"'>"
 							actionForm.submit()
