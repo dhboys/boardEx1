@@ -97,17 +97,17 @@
     <ul class="pagination">
     <c:if test="${pageMaker.prev }">
     <li class="page-item">
-      <a class="page-link" href="${pageMaker.start - 1 }" tabindex="-1">이전페이지</a>
+      <a style="color: black;" class="page-link" href="${pageMaker.start - 1 }" tabindex="-1">이전페이지</a>
     </li>
     </c:if>
     
     <c:forEach begin="${pageMaker.start }" end="${pageMaker.end }" var="num">
-    <li class="page-item ${num == pageMaker.pageDTO.page? "active":""  }"><a class="page-link" href="${num }">${num }</a></li>
+    <li class="page-item ${num == pageMaker.pageDTO.page? "active":"" }"><a style="color: black;" class="page-link" href="${num }">${num }</a></li>
     </c:forEach>
     
     <c:if test="${pageMaker.next }">
     <li class="page-item">
-      <a class="page-link" href="${pageMaker.end + 1 }">다음페이지</a>
+      <a style="color: black;" class="page-link" href="${pageMaker.end + 1 }">다음페이지</a>
     </li>
      </c:if>
   </ul>
@@ -256,7 +256,7 @@
     	 
      })
     	 
-
+	
   
   </script>
   

@@ -144,10 +144,10 @@ dqs(".hideBtn").addEventListener("click" , function(e){
 dqs(".listBtn").addEventListener("click" , function(e){
 	
 	
-	
-	actionForm.setAttribute("action" , "/board/list")
+	location.href = "/board/list"
+	/* actionForm.setAttribute("action" , "/board/list")
 	actionForm.setAttribute("method" , "get")
-	actionForm.submit()
+	actionForm.submit() */
 } , false)
 
 // cancel
@@ -170,10 +170,13 @@ dqs(".modBtn").addEventListener("click" , function(e){
 	
 	
 	
-	$("#registerModal").modal("show")
+	document.querySelector("#registerModal").style='display:block;'
+	
+	
 	
 },false)
 	
+	//document.querySelector("#registerModal").style='display:block;'
 
 
 

@@ -79,7 +79,17 @@
 			type="hidden" name="keyword" value="${pageDTO.keyword}">
 	</form>
 
+<ul>
+
+
+</ul>
+
+
 	<script>
+	
+	
+	
+	
 	
 	const d = document
 	const dqs = d.querySelector.bind(document)
