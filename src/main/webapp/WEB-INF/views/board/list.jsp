@@ -180,6 +180,7 @@
     	// type은 정하고 keyword를 입력하지 않았을시 처리
     	if(type == '' || keyword == ''){
     		alert("검색어를 입력해주세요")
+    		return
     	}
     	
     	// type 과 keyword가 null일 때 url에서 제거
